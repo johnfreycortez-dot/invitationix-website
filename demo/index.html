@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Live demo · Invitationix</title>
+<meta name="description" content="Try Smart RSVP yourself: reply as a guest on a sample wedding invitation and watch the couple's dashboard update live.">
+<meta property="og:site_name" content="Invitationix">
+<meta property="og:title" content="Experience Smart RSVP · Invitationix">
+<meta property="og:description" content="Reply as a guest and watch the couple's dashboard update live. Try it yourself.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://home.invitationix.online/demo/">
+<meta property="og:image" content="https://home.invitationix.online/social-home.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F6F1EB">
+<link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Bodoni+Moda:ital@0;1&family=Jost:wght@400;500;600&display=swap">
+<style>
+:root{--brown:#5E4739;--deep:#3B2C23;--cream:#F6F1EB;--paper:#FBF8F3;--line:#eadfd1;--sand:#E8DCCD;--gold:#C3A06B;--gold-ink:#9a743d;--muted:#7b675b;--soft:#9a8577;
+  --serif:'DM Serif Display',Georgia,serif;--didone:'Bodoni Moda',Georgia,serif;--sans:'Jost',system-ui,-apple-system,'Segoe UI',sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 10% 0,#fff 0,transparent 40%),radial-gradient(circle at 95% 60%,#eadcca 0,transparent 45%),var(--cream);color:var(--deep);font:400 16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+.lc{width:18px;height:18px;display:block;flex:none}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+.mark{background:currentColor;-webkit-mask:url(/logo.png) center/contain no-repeat;mask:url(/logo.png) center/contain no-repeat}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+.top{position:sticky;top:0;z-index:30;background:rgba(251,248,243,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:18px;height:64px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--brown)}
+.brand .mark{width:40px;height:28px}
+.brand span{font:400 14px var(--didone);letter-spacing:.32em;text-transform:uppercase}
+.back{margin-left:auto;display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--muted);font-size:15px}
+.back:hover{color:var(--deep)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;font:600 12px var(--sans);letter-spacing:.18em;text-transform:uppercase;text-decoration:none;border:0;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--brown);color:var(--cream)}
+.btn.primary:hover{background:var(--deep)}
+.btn.ghost{background:#fff;border:1px solid #d9c7b3;color:var(--brown)}
+@media (max-width:620px){.back span{display:none}.brand span{display:none}}
+
+.intro{padding-top:26px;padding-bottom:20px;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font:600 12px var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--gold-ink)}
+.eyebrow .dot{width:8px;height:8px;border-radius:50%;background:#3f9a62;box-shadow:0 0 0 4px rgba(63,154,98,.18);animation:pulse 1.8s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(63,154,98,0)}}
+h1{font:400 clamp(32px,4.4vw,50px)/1.05 var(--serif);margin:10px 0 10px;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--gold-ink)}
+.intro p{color:var(--muted);max-width:640px;margin:0 auto;font-size:17px}
+.note{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-size:14px;color:var(--soft)}
+
+.stage{display:grid;grid-template-columns:330px 1fr 1fr;gap:26px;align-items:start;padding-bottom:70px}
+.guide{position:sticky;top:84px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:0 24px 50px rgba(60,30,15,.08);max-height:calc(100vh - 104px);overflow:auto}
+.guide h2{font:400 24px var(--serif);margin:0 0 4px}
+.guide .sub{font-size:14px;color:var(--soft);margin:0 0 14px}
+.st{display:grid;grid-template-columns:30px 1fr;gap:12px;padding:14px 0;border-top:1px solid #f1e8dd}
+.st b{width:30px;height:30px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center;font:400 15px var(--didone);color:var(--gold-ink)}
+.st.done b{background:var(--brown);border-color:var(--brown);color:var(--cream)}
+.st h3{font:600 15.5px var(--sans);margin:3px 0 4px}
+.st p{margin:0;font-size:14px;color:var(--muted)}
+.names{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{white-space:nowrap;border:1px solid #dccbb7;background:var(--paper);color:var(--brown);border-radius:999px;padding:6px 12px;font-size:13.5px;transition:background .2s,border-color .2s}
+.chip:hover{background:#fff;border-color:var(--gold)}
+.chip small{color:var(--soft);margin-left:4px}
+.ff{display:grid;gap:8px;margin-top:10px}
+.ff button{display:flex;align-items:center;gap:10px;text-align:left;border:1px solid var(--line);background:var(--paper);border-radius:14px;padding:10px 12px;font-size:14px;color:var(--deep)}
+.ff button:hover{border-color:var(--gold);background:#fff}
+.ff button .lc{color:var(--gold-ink)}
+
+.phonecol{display:flex;flex-direction:column;align-items:center;gap:14px}
+.label{display:flex;align-items:center;gap:8px;font:600 12px var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--brown)}
+.label .lc{color:var(--gold-ink)}
+.seg{display:flex;background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px;gap:2px;box-shadow:0 8px 20px rgba(60,30,15,.05)}
+.seg button{border:0;background:transparent;border-radius:999px;padding:8px 14px;font-size:13.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.seg button .lc{width:15px;height:15px}
+.seg button.on{background:var(--brown);color:var(--cream)}
+.phone{width:356px;border-radius:52px;padding:11px;background:#231a15;box-shadow:0 50px 90px rgba(50,25,10,.28),inset 0 0 0 2px #4b3a30;position:relative}
+.phone:before{content:"";position:absolute;top:19px;left:50%;width:92px;height:26px;margin-left:-46px;border-radius:16px;background:#231a15;z-index:3}
+.scr{width:334px;height:722px;border-radius:42px;overflow:hidden;background:#fff;position:relative}
+.scr iframe{position:absolute;inset:0;width:390px;height:843px;border:0;transform:scale(.8564);transform-origin:0 0;background:#fff}
+.pulse{position:absolute;inset:-6px;border-radius:58px;border:2px solid var(--gold);opacity:0;pointer-events:none}
+.pulse.go{animation:ring 1.2s ease-out}
+@keyframes ring{0%{opacity:.9;transform:scale(.98)}100%{opacity:0;transform:scale(1.05)}}
+.toast{position:absolute;left:50%;bottom:26px;transform:translate(-50%,20px);background:var(--deep);color:var(--cream);border-radius:999px;padding:10px 16px;font-size:13.5px;display:flex;align-items:center;gap:8px;opacity:0;transition:all .35s;white-space:nowrap;z-index:4;box-shadow:0 14px 30px rgba(0,0,0,.25)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast .lc{color:var(--gold)}
+
+.outbox{width:356px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:0 20px 40px rgba(60,30,15,.06)}
+.outbox h3{display:flex;align-items:center;gap:8px;font:600 12px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--brown);margin:0 0 10px}
+.outbox h3 .count{margin-left:auto;font:600 12px var(--sans);letter-spacing:0;background:var(--cream);border-radius:999px;padding:2px 9px;color:var(--gold-ink)}
+.mail{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:center;width:100%;text-align:left;border:0;border-top:1px solid #f1e8dd;background:none;padding:10px 0;color:var(--deep)}
+.mail:first-of-type{border-top:0}
+.mail .i{width:34px;height:34px;border-radius:12px;background:var(--cream);display:grid;place-items:center;color:var(--gold-ink)}
+.mail .i .lc{width:16px;height:16px}
+.mail b{display:block;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mail span{display:block;font-size:12.5px;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mail:hover b{color:var(--gold-ink)}
+.mail.new{animation:flash 1.4s ease}
+@keyframes flash{0%{background:#f6ead7}100%{background:transparent}}
+.empty{font-size:14px;color:var(--soft);padding:6px 0 2px}
+
+.cta{background:var(--brown);color:var(--cream);border-radius:28px;padding:40px 30px;text-align:center;margin:0 auto 70px;max-width:900px;box-shadow:0 30px 60px rgba(60,30,15,.25)}
+.cta h2{font:400 clamp(30px,4vw,42px)/1.1 var(--serif);margin:0 0 10px}
+.cta h2 em{color:var(--gold);font-style:italic}
+.cta p{color:rgba(246,241,235,.78);margin:0 0 22px}
+.cta .btn.gold{background:var(--gold);color:var(--deep)}
+.cta .btn.line{border:1px solid rgba(246,241,235,.35);color:var(--cream);background:transparent}
+.cta .row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:50;background:rgba(40,25,15,.55);display:none;align-items:center;justify-content:center;padding:20px}
+.modal.on{display:flex}
+.sheet{width:min(640px,100%);height:min(86vh,900px);background:#fff;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 40px 90px rgba(0,0,0,.35)}
+.sheet header{display:flex;align-items:flex-start;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.sheet header div{flex:1;min-width:0;font-size:13.5px;color:var(--soft)}
+.sheet header b{display:block;color:var(--deep);font-size:16px;font-weight:600;margin-bottom:2px}
+.sheet header button{border:0;background:var(--cream);width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:var(--brown)}
+.sheet iframe{flex:1;border:0;width:100%}
+
+/* responsive: tabs between the two phones */
+.tabs{display:none}
+.mob{display:none}
+@media (max-width:820px){.mob{display:inline}}
+@media (max-width:1180px){
+  .stage{grid-template-columns:1fr 1fr;}
+  .guide{grid-column:1/-1;position:static;max-height:none}
+  .guide .steps{display:grid;grid-template-columns:1fr 1fr;column-gap:24px}
+}
+@media (max-width:820px){
+  .stage{grid-template-columns:1fr}
+  .guide{order:3}
+  .guide .steps{grid-template-columns:1fr}
+  .tabs{display:flex;justify-content:center;position:sticky;top:72px;z-index:20}
+  .phonecol{display:none}
+  .phonecol.show{display:flex}
+}
+@media (max-width:400px){
+  .phone{width:320px;border-radius:46px;padding:10px}.scr{width:300px;height:649px;border-radius:37px}.scr iframe{transform:scale(.7692)}
+  .outbox{width:320px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Invitationix home"><div class="mark" aria-hidden="true"></div><span>Invitationix</span></a>
+    <a class="back" href="/"><svg class="lc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg><span>Back to Invitationix</span></a>
+    <a class="btn primary" href="https://m.me/invitationix" target="_blank" rel="noopener">Book yours</a>
+  </div>
+</header>
+
+<main>
+<section class="intro wrap">
+  <div class="eyebrow"><span class="dot"></span>Live demo</div>
+  <h1>Experience the <em>invitation</em> &amp; Smart RSVP</h1>
+  <p>This is a working sample wedding invitation. Open it like a guest, RSVP, then watch the couple's dashboard update on the other phone, just like the real thing. <span class="mob">Steps to try are below the phone.</span></p>
+  <div class="note"><svg class="lc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>Sample data only. Nothing is saved and no real emails are sent. <button class="chip" id="reset" type="button" style="margin-left:6px">Start over</button></div>
+</section>
+
+<div class="tabs wrap">
+  <div class="seg" role="tablist" aria-label="Choose a phone">
+    <button class="on" data-col="guestCol" role="tab"><svg class="lc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Guest</button>
+    <button data-col="coupleCol" role="tab"><svg class="lc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>Couple</button>
+  </div>
+</div>
+
+<section class="stage wrap">
+  <aside class="guide" aria-label="Things to try">
+    <h2>Try it yourself</h2>
+    <p class="sub">Follow the steps, or just explore.</p>
+    <div class="steps">
+      <div class="st" id="s1"><b>1</b><div><h3>Open the invitation</h3><p>Tap <strong>Open invitation</strong> (sound on for the music), then scroll through the story, program, entourage, attire guide and more. At the end, tap <strong>RSVP</strong>.</p>
+        <div class="names"><button class="chip" data-go="invite">Start from the envelope</button><a class="chip" href="invite.html" target="_blank" rel="noopener" style="text-decoration:none">Open full screen</a></div></div></div>
+      <div class="st" id="s2"><b>2</b><div><h3>Find a guest</h3><p>Tap a name to fill it in, then tap <strong>Find my invitation</strong>. Small typos still work.</p>
+        <div class="names">
+          <button class="chip" data-name="Andrea Santos">Andrea Santos<small>family of 4</small></button>
+          <button class="chip" data-name="ramon dela cruz">Ramon Dela Cruz<small>family of 4</small></button>
+          <button class="chip" data-name="Carlo Bautista">Carlo Bautista<small>sponsors</small></button>
+          <button class="chip" data-name="Patricia Lim">Patricia Lim</button>
+          <button class="chip" data-name="grace mendosa">grace mendosa<small>typo</small></button>
+        </div></div></div>
+      <div class="st" id="s3"><b>3</b><div><h3>Reply for each person</h3><p>Switch off anyone who can't come, add a message, and confirm. Notice there's no way to add extra guests.</p></div></div>
+      <div class="st" id="s4"><b>4</b><div><h3>Watch the couple's side</h3><p>The dashboard updates by itself, and the emails appear in the outbox. Tap any email to read it.</p></div></div>
+      <div class="st" id="s5"><b>5</b><div><h3>Find my table</h3><p>On the day, guests type their name to see their seat.</p>
+        <div class="names"><button class="chip" data-go="table" data-name="Ben Torres">Try Ben Torres</button></div></div></div>
+      <div class="st" id="s6"><b>6</b><div><h3>Skip ahead in time</h3><p>See what Smart RSVP sends on its own.</p>
+        <div class="ff">
+          <button type="button" data-run="reminder"><svg class="lc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M5 3 2 6"/><path d="m22 6-3-3"/></svg>A week later: remind guests who haven't replied</button>
+          <button type="button" data-run="event"><svg class="lc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>7 days before: event reminder to everyone coming</button>
+          <button type="button" data-run="thankyou"><svg class="lc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>The day after: thank-you email (optional)</button>
+        </div></div></div>
+    </div>
+  </aside>
+
+  <div class="phonecol show" id="guestCol">
+    <div class="label"><svg class="lc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Guest's phone</div>
+    <div class="seg" id="guestSeg">
+      <button data-go="invite" class="on">Invitation</button>
+      <button data-go="rsvp">RSVP</button>
+      <button data-go="table">Find my table</button>
+    </div>
+    <div class="phone"><div class="pulse" id="gPulse"></div><div class="scr"><iframe id="guest" title="Guest's phone: sample invitation and RSVP" src="invite.html" allow="autoplay"></iframe></div><div class="toast" id="gToast"></div></div>
+  </div>
+
+  <div class="phonecol" id="coupleCol">
+    <div class="label"><svg class="lc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m19 9-5 5-4-4-3 3"/></svg>Couple's dashboard</div>
+    <div class="phone"><div class="pulse" id="cPulse"></div><div class="scr"><iframe id="couple" title="Couple's live RSVP dashboard" src="demo-dashboard.html?e=gabriel-sofia"></iframe></div><div class="toast" id="cToast"></div></div>
+    <div class="outbox">
+      <h3><svg class="lc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>Emails sent<span class="count" id="mcount">0</span></h3>
+      <div id="mails"><div class="empty">No emails yet. Reply as a guest to see them appear here.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="cta">
+    <h2>Want this for <em>your</em> celebration?</h2>
+    <p>Every Invitationix invitation comes with Smart RSVP, designed to match your theme.</p>
+    <div class="row">
+      <a class="btn gold" href="https://m.me/invitationix" target="_blank" rel="noopener">Message us to book</a>
+      <a class="btn line" href="/">Back to Invitationix</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mSubj">
+  <div class="sheet">
+    <header><div><b id="mSubj"></b><span id="mTo"></span></div><button type="button" id="mClose" aria-label="Close"><svg class="lc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></header>
+    <iframe id="mBody" title="Email preview"></iframe>
+  </div>
+</div>
+
+<script src="demo-data.js"></script>
+<script src="demo-store.js"></script>
+<script>
+(function () {
+  var S = window.DemoStore, CODE = 'gabriel-sofia';
+  var $ = function (id) { return document.getElementById(id); };
+  var guest = $('guest'), couple = $('couple');
+  var SRC = { invite: 'invite.html', rsvp: 'demo-rsvp.html?e=' + CODE, table: 'demo-rsvp.html?e=' + CODE + '&view=table' };
+  var LABEL = { confirmation: 'Confirmation to guest', alert: 'New-reply alert to couple', reminder: 'Reminder to guest', event: 'Event reminder', thankyou: 'Thank-you', announcement: 'Announcement', links: 'Links to the couple' };
+  var ICON = {
+    confirmation: '<path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="m16 19 2 2 4-4"/>',
+    alert: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+    reminder: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/>',
+    event: '<rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/>',
+    thankyou: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+    announcement: '<path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>'
+  };
+  function svg(p) { return '<svg class="lc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (p || ICON.confirmation) + '</svg>'; }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function pulse(id) { var e = $(id); e.classList.remove('go'); void e.offsetWidth; e.classList.add('go'); }
+  function toast(id, html) { var t = $(id); t.innerHTML = html; t.classList.add('on'); clearTimeout(t._t); t._t = setTimeout(function () { t.classList.remove('on'); }, 2600); }
+  function done(n) { var e = $('s' + n); if (e) e.classList.add('done'); }
+
+  // guest phone views
+  var view = 'invite';
+  function go(v, then) {
+    view = v;
+    document.querySelectorAll('#guestSeg button').forEach(function (b) { b.classList.toggle('on', b.dataset.go === v); });
+    showCol('guestCol');
+    if (window.matchMedia('(max-width:820px)').matches) $('guestCol').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    guest.onload = function () { hook(); if (then) setTimeout(then, 150); };
+    guest.src = SRC[v];
+  }
+  function hook() {
+    // follow the guest's own taps inside the phone (e.g. tapping RSVP on the invitation)
+    try {
+      var p = guest.contentWindow.location.href;
+      var v = /view=table/.test(p) ? 'table' : /demo-rsvp/.test(p) ? 'rsvp' : 'invite';
+      view = v;
+      document.querySelectorAll('#guestSeg button').forEach(function (b) { b.classList.toggle('on', b.dataset.go === v); });
+      if (v === 'rsvp') done(1);
+    } catch (e) {}
+  }
+  guest.addEventListener('load', hook);
+  document.querySelectorAll('[data-go]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var name = b.dataset.name;
+      if (b.dataset.go === 'invite') { try { sessionStorage.removeItem('inv-open'); } catch (e) {} }
+      go(b.dataset.go, name ? function () { fill(name); } : null);
+    });
+  });
+  function fill(name) {
+    try {
+      var d = guest.contentDocument, i = d.getElementById('nameInput');
+      if (!i) return;
+      i.value = name; i.dispatchEvent(new Event('input', { bubbles: true }));
+      i.scrollIntoView({ block: 'center' }); i.focus({ preventScroll: true });
+      pulse('gPulse');
+      toast('gToast', svg('<path d="m9 18 6-6-6-6"/>') + 'Now tap “Find my invitation”');
+    } catch (e) {}
+  }
+  document.querySelectorAll('[data-name]:not([data-go])').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var name = b.dataset.name;
+      if (view !== 'rsvp') go('rsvp', function () { fill(name); }); else fill(name);
+      done(1);
+    });
+  });
+
+  // phone tabs on small screens
+  function showCol(id) {
+    document.querySelectorAll('.phonecol').forEach(function (c) { c.classList.toggle('show', c.id === id); });
+    document.querySelectorAll('.tabs button').forEach(function (b) { b.classList.toggle('on', b.dataset.col === id); });
+  }
+  document.querySelectorAll('.tabs button').forEach(function (b) { b.addEventListener('click', function () { showCol(b.dataset.col); }); });
+  if (window.matchMedia('(min-width:821px)').matches) document.querySelectorAll('.phonecol').forEach(function (c) { c.classList.add('show'); });
+  window.matchMedia('(min-width:821px)').addEventListener('change', function (m) { if (m.matches) document.querySelectorAll('.phonecol').forEach(function (c) { c.classList.add('show'); }); });
+
+  // fast-forward buttons
+  document.querySelectorAll('[data-run]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var n = S.sheet.runDaily(CODE, b.dataset.run);
+      done(6);
+      toast('cToast', svg(ICON.reminder) + (n ? n + (n === 1 ? ' email sent' : ' emails sent') : 'Nobody to email yet'));
+      pulse('cPulse');
+    });
+  });
+
+
+  // Emails are written for the guest who triggered them, in the invitation's colours.
+  var EV = S.data.events[CODE].rsvp.event;
+  function first(n) { return String(n || '').split(' ')[0]; }
+  function mailShell(kick, body) {
+    return '<!doctype html><html><head><meta charset="utf-8"><link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Jost:wght@400;500;600&display=swap" rel="stylesheet"></head>' +
+      '<body style="margin:0;background:#F6F1EB;font:15px/1.6 Jost,Arial,sans-serif;color:#3B2C23"><div style="max-width:520px;margin:0 auto;padding:24px 16px">' +
+      '<div style="background:#fff;border:1px solid #eadfd1;border-radius:14px;overflow:hidden">' +
+      '<div style="text-align:center;padding:26px 20px 18px;border-bottom:1px solid #eadfd1;background:#FBF8F3"><div style="font:600 11px Jost,Arial;letter-spacing:.3em;text-transform:uppercase;color:#9a743d">' + kick + '</div>' +
+      '<div style="font:400 40px/1.1 \'Pinyon Script\',cursive;color:#5E4739;margin-top:6px">Gabriel &amp; Sofia</div><div style="font:500 11px Jost,Arial;letter-spacing:.3em;color:#8a7464;margin-top:6px">APRIL 24, 2027</div></div>' +
+      '<div style="padding:22px 24px">' + body + '</div></div><div style="text-align:center;font-size:12px;color:#9a8577;margin-top:14px">Sent by Invitationix Smart RSVP</div></div></body></html>';
+  }
+  function row(k, v) { return '<tr><td style="padding:8px 0;color:#8a7464;width:110px;vertical-align:top;font-size:13px">' + k + '</td><td style="padding:8px 0">' + v + '</td></tr>'; }
+  function btn(t) { return '<div style="margin:18px 0 4px"><span style="display:inline-block;background:#5E4739;color:#F6F1EB;border-radius:999px;padding:11px 22px;font:600 12px Jost,Arial;letter-spacing:.2em;text-transform:uppercase">' + t + '</span></div>'; }
+  function details(g) {
+    return '<table style="width:100%;border-collapse:collapse;margin-top:10px;border-top:1px solid #f1e8dd">' +
+      row('Ceremony', esc(EV.venue) + ', ' + esc(EV.venueAddr) + ' · ' + esc(EV.timeText)) + row('Reception', esc(EV.reception) + ', ' + esc(EV.receptionAddr)) +
+      row('Dress code', esc(EV.dress)) + (g && g.table ? row('Your table', '<b>Table ' + esc(g.table) + '</b>') : '') + '</table>';
+  }
+  function buildMail(m) {
+    var g = m.guest || {}, yes = S.splitNames(g.attendingNames), all = g.people || [];
+    var no = all.filter(function (p) { return yes.indexOf(p) < 0; });
+    if (m.type === 'confirmation') return { subject: 'You’re confirmed for Gabriel & Sofia', html: mailShell(yes.length ? 'See you there' : 'Thank you',
+      '<p>Hi ' + esc(first(all[0])) + ', thank you for your response! Here is a copy of your RSVP:</p><table style="width:100%;border-collapse:collapse">' +
+      all.map(function (p) { var y = yes.indexOf(p) >= 0; return '<tr><td style="padding:7px 0;border-bottom:1px solid #f1e8dd">' + esc(p) + '</td><td style="padding:7px 0;border-bottom:1px solid #f1e8dd;text-align:right;color:' + (y ? '#3f7d55' : '#9a8577') + '">' + (y ? 'Attending' : 'Can’t make it') + '</td></tr>'; }).join('') + '</table>' +
+      (yes.length ? details(g) + btn('Add to calendar') : '<p style="margin-top:14px">We’ll miss you, and we’re grateful you let us know.</p>') +
+      '<p style="font-size:13px;color:#8a7464;margin-top:14px">Need to change your answer? Open your invitation and RSVP again before ' + esc(EV.deadlineText) + '.</p>') };
+    if (m.type === 'alert') {
+      var list = S.guests.filter(function (x) { return x.code === CODE; }), att = 0, dec = 0, wait = 0, seats = 0;
+      list.forEach(function (x) { var a = x.status ? S.splitNames(x.attendingNames).length : 0; seats += x.people.length; att += a; if (x.status) dec += x.people.length - a; else wait++; });
+      return { subject: 'New RSVP: ' + g.group + ' (' + yes.length + ' of ' + all.length + ' attending)', html: mailShell('New response',
+        '<p><b>' + esc(g.group) + '</b> just responded.</p>' + (yes.length ? '<p>Attending: ' + esc(yes.join(', ')) + '</p>' : '') + (no.length ? '<p style="color:#8a7464">Can’t make it: ' + esc(no.join(', ')) + '</p>' : '') +
+        '<table style="width:100%;border-collapse:separate;border-spacing:6px;margin-top:8px;text-align:center"><tr>' +
+        [['Attending', att + ' of ' + seats], ['Declined', dec], ['Still waiting', wait + ' groups']].map(function (c) { return '<td style="padding:12px;border:1px solid #eadfd1;border-radius:8px"><div style="font-size:12px;color:#8a7464">' + c[0] + '</div><div style="font:600 18px Jost,Arial">' + c[1] + '</div></td>'; }).join('') +
+        '</tr></table>' + btn('Open your dashboard')) };
+    }
+    if (m.type === 'reminder') return { subject: 'A gentle reminder: please RSVP by ' + EV.deadlineText, html: mailShell('Kindly RSVP',
+      '<p>Hi ' + esc(g.group) + ',</p><p style="font-style:italic">Every seat is reserved with love and intention. We’ve saved ' + all.length + (all.length === 1 ? ' seat' : ' seats') + ' for you and would love to know if you can make it.</p><p>Kindly respond by <b>' + esc(EV.deadlineText) + '</b>.</p>' + btn('RSVP now')) };
+    if (m.type === 'event') return { subject: 'One week to go! Your guide for Gabriel & Sofia', html: mailShell('See you in 7 days',
+      '<p>Hi ' + esc(first(all[0])) + ', we can’t wait to celebrate with you in 7 days! Here is everything you need:</p>' + details(g) +
+      (g.message ? '<p style="background:#FBF8F3;border:1px solid #eadfd1;border-radius:10px;padding:12px 14px;margin-top:14px;font-style:italic">' + esc(g.message) + '</p>' : '') + btn('Find my table')) };
+    if (m.type === 'thankyou') return { subject: 'Thank you for celebrating with us', html: mailShell('Thank you',
+      '<p>Dear ' + esc(first(all[0])) + ',</p><p>Your love, prayers and presence made our day complete. We are so grateful you were there to celebrate with us.</p><p style="font:400 30px \'Pinyon Script\',cursive;color:#5E4739;margin:18px 0 0">With love, Gabriel &amp; Sofia</p>') };
+    var tpl = S.data.mails[m.code + ':' + m.type] || {};
+    return { subject: m.subject, html: tpl.html || '' };
+  }
+
+  // outbox
+  var seen = 0;
+  function renderMails() {
+    var list = S.outbox.filter(function (m) { return m.code === CODE; });
+    $('mcount').textContent = list.length;
+    if (!list.length) return;
+    var fresh = list.length - seen; seen = list.length;
+    $('mails').innerHTML = list.slice(0, 8).map(function (m, i) {
+      return '<button class="mail' + (i < fresh ? ' new' : '') + '" data-i="' + i + '"><span class="i">' + svg(ICON[m.type]) + '</span><span><b>' + esc(buildMail(m).subject) + '</b><span>' + esc(LABEL[m.type] || 'Email') + ' · to ' + esc(m.to) + (m.cc ? ' · cc couple' : '') + '</span></span></button>';
+    }).join('');
+    $('mails').querySelectorAll('.mail').forEach(function (b) { b.addEventListener('click', function () { openMail(list[+b.dataset.i]); }); });
+    if (fresh > 0) { done(4); pulse('cPulse'); toast('cToast', svg(ICON.confirmation) + (fresh === 1 ? '1 new email' : fresh + ' new emails')); }
+  }
+  function openMail(m) {
+    var b = buildMail(m);
+    $('mSubj').textContent = b.subject;
+    $('mTo').textContent = 'To ' + m.to + (m.cc ? '  ·  Cc ' + m.cc : '');
+    $('mBody').srcdoc = b.html;
+    $('modal').classList.add('on'); $('mClose').focus();
+  }
+  function closeMail() { $('modal').classList.remove('on'); }
+  $('mClose').addEventListener('click', closeMail);
+  $('modal').addEventListener('click', function (e) { if (e.target.id === 'modal') closeMail(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMail(); });
+
+  S.on(function (what) {
+    if (what === 'rsvp') { done(2); done(3); }
+    renderMails();
+  });
+  $('reset').addEventListener('click', function () { try { sessionStorage.removeItem('inv-open'); } catch (e) {} location.reload(); });
+})();
+</script>
+</body>
+</html>
