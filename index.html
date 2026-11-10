@@ -25,7 +25,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
 <link rel="shortcut icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preload" as="image" href="/img/work-earth.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="/img/hero-bg.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Bodoni+Moda&family=Jost:wght@400;500;600;700&display=swap">
@@ -53,7 +53,7 @@ section{padding:100px 0}
 .eyebrow{display:inline-flex;align-items:center;gap:12px;font:700 11.5px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--gold-ink)}
 .eyebrow:before{content:"";width:26px;height:2px;border-radius:2px;background:var(--gold)}
 .h2{font:400 clamp(36px,4.6vw,54px)/1.06 var(--serif);letter-spacing:-.01em;margin:16px 0 14px;color:var(--ink)}
-.h2 .ac,.h1 .ac{color:var(--gold);font-style:italic}
+.h2 .ac,.h1 .ac{color:#f1dcb6;font-style:italic}
 .h2 .ac{color:var(--gold-ink)}
 .dark .h2 .ac{color:var(--gold)}
 .sub{font-size:17px;color:var(--muted);max-width:600px}
@@ -89,16 +89,15 @@ section{padding:100px 0}
 @media (max-width:640px){.nav .guestlink,.nav .demo{display:none}.brand span{display:none}}
 
 /* hero */
-.hero{position:relative;overflow:hidden;color:var(--cream);background:
-  radial-gradient(circle at 78% 30%,rgba(195,160,107,.20) 0,transparent 42%),
-  radial-gradient(circle at 10% 0,#5a4436 0,transparent 55%),
-  linear-gradient(180deg,#3a2b22,#2a1f19)}
-.hero:before{content:"";position:absolute;inset:0;background:url(/img/work-earth.jpg) right center/50% auto no-repeat;opacity:.06;filter:blur(2px)}
+.hero{position:relative;overflow:hidden;color:var(--cream);background:#4a3326 url(/img/hero-bg.jpg) center/cover no-repeat}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(40,26,19,.55),rgba(40,26,19,.15) 60%,rgba(40,26,19,.35)),linear-gradient(180deg,transparent 70%,rgba(30,20,15,.5));animation:drift 18s ease-in-out infinite alternate}
+@keyframes drift{from{opacity:.85}to{opacity:1}}
 .hero .wrap{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding-top:84px;padding-bottom:70px}
 .pill{display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;border:1px solid rgba(246,241,235,.22);background:rgba(255,255,255,.05);font:700 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--sand)}
 .pill i{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(195,160,107,.2)}
-.h1{font:400 clamp(48px,6.6vw,84px)/1.02 var(--serif);letter-spacing:-.015em;margin:24px 0 22px}
-.hero .lead{font-size:18px;color:rgba(246,241,235,.78);max-width:520px}
+.h1{font:400 clamp(44px,5.6vw,72px)/1.05 var(--serif);letter-spacing:-.015em;margin:24px 0 22px}
+.hero .lead{font-size:18px;color:rgba(246,241,235,.82);max-width:540px}
+.hero .lead b{color:#fff;font-weight:600;font-style:italic}
 .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
 .visual{position:relative;padding:0 34px 34px 0}
 .visual .frame{border-radius:22px;overflow:hidden;border:1px solid rgba(246,241,235,.16);box-shadow:0 50px 90px rgba(0,0,0,.45)}
@@ -282,6 +281,35 @@ details p b{color:var(--ink);font-weight:700}
 @media (max-width:860px){.foot .cols{grid-template-columns:1fr 1fr}}
 @media (max-width:480px){.foot .cols{grid-template-columns:1fr}}
 
+/* phones that scroll by themselves */
+.ph.live .scr{border-radius:27px;overflow:hidden;aspect-ratio:600/1298;background:#fff;position:relative}
+.ph.live .scr img{width:100%;height:auto;aspect-ratio:auto;border-radius:0;object-fit:initial;animation:phscroll var(--t) cubic-bezier(.45,0,.55,1) infinite;animation-play-state:paused;will-change:transform}
+.shot.in .ph.live .scr img{animation-play-state:running}
+@keyframes phscroll{0%,14%{transform:translateY(0)}46%,60%{transform:translateY(var(--d))}92%,100%{transform:translateY(0)}}
+.ph.live .cursor{position:absolute;right:22px;top:58%;width:22px;height:22px;border-radius:50%;background:rgba(195,160,107,.55);border:2px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.25);opacity:0;animation:swipe var(--t2,5s) ease-in-out infinite;animation-play-state:paused;z-index:3}
+.shot.in .ph.live .cursor{animation-play-state:running}
+@keyframes swipe{0%,8%{opacity:0;transform:translateY(40px)}14%{opacity:1;transform:translateY(40px)}40%{opacity:1;transform:translateY(-60px)}48%,100%{opacity:0;transform:translateY(-60px)}}
+.ph.live .glow{position:absolute;left:50%;top:38%;width:120px;height:120px;margin:-60px;border-radius:50%;border:2px solid var(--gold);opacity:0;animation:ring 2.6s ease-out infinite;animation-play-state:paused}
+.shot.in .ph.live .glow{animation-play-state:running}
+@keyframes ring{0%{opacity:.8;transform:scale(.4)}100%{opacity:0;transform:scale(1.6)}}
+.shot .ph{transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.js .shot.rv .ph{transform:translateY(40px) rotate(-3deg)}
+.js .row:nth-child(even) .shot.rv .ph{transform:translateY(40px) rotate(3deg)}
+.js .shot.rv.in .ph{transform:none}
+.shot:hover .ph{transform:translateY(-6px)}
+/* comparison: items arrive one by one, old ones get crossed out */
+.js .col li{opacity:0;transform:translateX(-14px);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+.js .col.new li{transform:translateX(14px)}
+.js .col.in li{opacity:1;transform:none}
+.col li span.tx{position:relative}
+.col.old li span.tx:after{content:"";position:absolute;left:0;top:55%;height:1.5px;width:0;background:rgba(240,182,173,.75);transition:width .5s ease}
+.col.old.in li span.tx:after{width:100%}
+.col.new li i{transform:scale(.3);transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.col.new.in li i{transform:none}
+.col.new{transition:box-shadow .4s}
+.col.new.in{animation:lift 1.2s 1.6s ease both}
+@keyframes lift{50%{box-shadow:0 30px 70px rgba(195,160,107,.45)}}
+@media (prefers-reduced-motion:reduce){.ph.live .scr img,.ph.live .cursor,.ph.live .glow{animation:none}.js .col li{opacity:1;transform:none}}
 /* hero entrance */
 @keyframes blur-up{0%{opacity:0;transform:translateY(14px);filter:blur(6px)}100%{opacity:1;transform:none;filter:none}}
 .hero-in{animation:blur-up .8s cubic-bezier(.2,.8,.2,1) both}
@@ -468,8 +496,8 @@ details p b{color:var(--ink);font-weight:700}
   <div class="wrap">
     <div>
       <div class="pill hero-in" ><i></i>Website invitations · Smart RSVP</div>
-      <h1 class="h1 hero-in" >Beautiful invitations. <span class="ac">Effortless RSVPs.</span></h1>
-      <p class="lead hero-in" >We design modern, elegant website invitations around your theme and your story, with Smart RSVP built in. Guests reply in seconds, and you watch your headcount update live.</p>
+      <h1 class="h1 hero-in">Your <span class="ac">celebration</span> deserves a beautiful <span class="ac">beginning.</span></h1>
+      <p class="lead hero-in">We design elegant <b>website invitations</b> and <b>digital invitations</b> that set the tone from the very first click, now with <b>Smart RSVP</b> built in. Guests reply in seconds, and you watch your headcount update live.</p>
       <div class="cta hero-in" >
         <a class="btn gold" href="https://m.me/invitationix" target="_blank" rel="noopener">Book now <svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
         <a class="btn glass" href="/demo/">Try the live demo</a>
@@ -544,9 +572,9 @@ details p b{color:var(--ink);font-weight:700}
     <p class="sub rv">Separate links, guests adding extra people, replies you count by hand. Smart RSVP fixes all of it, right inside your invitation.</p>
     <div class="vs">
       <div class="col old rv"><h3>The old way</h3><div class="t">Google Form</div>
-        <ul><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg></i>A separate link outside your invitation</li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg></i>Guests type every name themselves</li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg></i>Anyone can add plus-ones</li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg></i>You count replies by hand</li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg></i>You chase guests who forgot</li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg></i>No table info for guests</li></ul></div>
+        <ul><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg></i><span class="tx">A separate link outside your invitation</span></li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg></i><span class="tx">Guests type every name themselves</span></li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg></i><span class="tx">Anyone can add plus-ones</span></li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg></i><span class="tx">You count replies by hand</span></li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg></i><span class="tx">You chase guests who forgot</span></li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg></i><span class="tx">No table info for guests</span></li></ul></div>
       <div class="col new rv"><h3>The Invitationix way</h3><div class="t">Smart RSVP</div>
-        <ul><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></i>Built into your invitation, in your design</li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></i>Guests just find their name</li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></i>Only the seats you give them</li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></i>Live headcount on your dashboard</li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></i>Reminders that send themselves</li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></i>Find my table on the day</li></ul></div>
+        <ul><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></i><span class="tx">Built into your invitation, in your design</span></li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></i><span class="tx">Guests just find their name</span></li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></i><span class="tx">Only the seats you give them</span></li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></i><span class="tx">Live headcount on your dashboard</span></li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></i><span class="tx">Reminders that send themselves</span></li><li><i><svg class="lc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></i><span class="tx">Find my table on the day</span></li></ul></div>
     </div>
   </div>
 </section>
@@ -560,31 +588,31 @@ details p b{color:var(--ink);font-weight:700}
     </div>
     <div class="rows">
       <div class="row">
-        <div class="shot rv"><div class="ph"><img src="/img/rsvp-search.jpg" alt="RSVP page with a guest typing their name" width="600" height="1298" loading="lazy"></div></div>
+        <div class="shot rv"><div class="ph live"><div class="scr"><img src="/img/rsvp-search-full.jpg" alt="RSVP page with a guest typing their name" width="600" height="1498" loading="lazy" style="--d:-13.35%;--t:8s"></div><span class="cursor" aria-hidden="true"></span></div></div>
         <div class="rv"><div class="num"><b>1</b>For guests</div><h3>Guests just <span class="ac">find their name.</span></h3>
           <p>They tap RSVP on your invitation and type their name as written. Small typos are fine, and nobody needs to sign up or download anything.</p>
           <div class="chips"><span>Typo-friendly search</span><span>No app</span><span>Any phone</span></div></div>
       </div>
       <div class="row">
-        <div class="shot rv"><div class="ph"><img src="/img/rsvp-list.jpg" alt="RSVP page listing four family members with attending switches" width="600" height="1298" loading="lazy"></div></div>
+        <div class="shot rv"><div class="ph live"><div class="scr"><img src="/img/rsvp-list-full.jpg" alt="RSVP page listing four family members with attending switches" width="600" height="1641" loading="lazy" style="--d:-20.9%;--t:9s"></div><span class="cursor" aria-hidden="true"></span></div></div>
         <div class="rv"><div class="num"><b>2</b>No surprises</div><h3>Only the seats <span class="ac">you give them.</span></h3>
           <p>A family of four sees exactly four names and says yes or no for each person. No surprise plus-ones, ever.</p>
           <div class="chips"><span>Seats set per family</span><span>Yes or no per person</span></div></div>
       </div>
       <div class="row">
-        <div class="shot rv"><div class="ph"><img src="/img/rsvp-done.jpg" alt="Thank-you screen with the guest's table number" width="600" height="1298" loading="lazy"></div></div>
+        <div class="shot rv"><div class="ph live"><div class="scr"><img src="/img/rsvp-done-full.jpg" alt="Thank-you screen with the guest's table number" width="600" height="2147" loading="lazy" style="--d:-39.54%;--t:13s"></div><span class="cursor" aria-hidden="true"></span></div></div>
         <div class="rv"><div class="num"><b>3</b>Instant confirmation</div><h3>Their table number, <span class="ac">right away.</span></h3>
           <p>Guests get a confirmation email with their answers, their table number, an add-to-calendar button and maps to the venues.</p>
           <div class="chips"><span>Confirmation email</span><span>Calendar &amp; maps</span><span>Copy to the couple</span></div></div>
       </div>
       <div class="row">
-        <div class="shot rv"><div class="ph"><img src="/img/dashboard.jpg" alt="Couple dashboard with live RSVP numbers and a replies chart" width="600" height="1298" loading="lazy"></div></div>
+        <div class="shot rv"><div class="ph live"><div class="scr"><img src="/img/dashboard-full.jpg" alt="Couple dashboard with live RSVP numbers and a replies chart" width="600" height="4200" loading="lazy" style="--d:-69.1%;--t:30s"></div><span class="cursor" aria-hidden="true"></span></div></div>
         <div class="rv"><div class="num"><b>4</b>For the couple</div><h3>Your headcount, <span class="ac">always live.</span></h3>
           <p>A private dashboard shows who's coming, who declined and who hasn't replied yet, the moment it happens.</p>
           <div class="chips"><span>Replies over time</span><span>Seating &amp; caterer list</span><span>Add &amp; edit guests</span><span>One-tap reminders</span></div></div>
       </div>
       <div class="row">
-        <div class="shot rv"><div class="ph"><img src="/img/table.jpg" alt="Find my table page showing the Torres family seated at table 9" width="600" height="1298" loading="lazy"></div></div>
+        <div class="shot rv"><div class="ph live"><div class="scr"><img src="/img/table-full.jpg" alt="Find my table page showing the Torres family seated at table 9" width="600" height="1298" loading="lazy" style="--d:-0.0%;--t:8s"></div><span class="glow" aria-hidden="true"></span></div></div>
         <div class="rv"><div class="num"><b>5</b>On the day</div><h3>Find my table, <span class="ac">in seconds.</span></h3>
           <p>Guests scan the QR code at the entrance, type their name and see where they're seated. No crowding around a printed seating chart.</p>
           <div class="chips"><span>QR at the entrance</span><span>Seat in seconds</span></div></div>
@@ -711,6 +739,16 @@ details p b{color:var(--ink);font-weight:700}
 
 <script>
   (function () {
+
+    document.querySelectorAll('.col').forEach(function (c) {
+      c.querySelectorAll('li').forEach(function (li, i) {
+        var d = (c.classList.contains('old') ? 0 : 900) + i * 140;
+        li.style.transitionDelay = d + 'ms';
+        var t = li.querySelector('.tx'); if (t) t.style.setProperty('transition-delay', (d + 350) + 'ms');
+        var ic = li.querySelector('i'); if (ic && c.classList.contains('new')) ic.style.transitionDelay = (d + 200) + 'ms';
+      });
+    });
+    document.querySelectorAll('.ph.live .scr img').forEach(function (im) { var c = im.parentNode.parentNode.querySelector('.cursor'); if (c) c.style.setProperty('--t2', im.style.getPropertyValue('--t')); });
     var els = document.querySelectorAll('.rv');
     if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
     var io = new IntersectionObserver(function (entries) {
